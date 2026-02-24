@@ -26,7 +26,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<AppointmentResponseDTO> getAppointmentsByPatient(Long patientId) {
 
-
         Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new PatientNotFoundException(
                         "Patient not found with id: " + patientId));
@@ -40,6 +39,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private AppointmentResponseDTO mapToResponse(Appointment appointment) {
+
         AppointmentResponseDTO response = new AppointmentResponseDTO();
 
         // Appointment info
@@ -47,20 +47,20 @@ public class AppointmentServiceImpl implements AppointmentService {
         response.setAppointmentDateTime(appointment.getAppointmentDateTime());
         response.setStatus(appointment.getStatus());
 
-        // Patient info - uses Patient.id and Patient.name
+        // Patient info
         Patient patient = appointment.getPatient();
         response.setPatientId(patient.getId());
         response.setPatientName(patient.getName());
         response.setPatientPhone(patient.getPhone());
 
-        // Doctor info - uses Doctor.id, Doctor.name, Doctor.specialization.name
+        // Doctor info
         Doctor doctor = appointment.getDoctor();
         response.setDoctorId(doctor.getId());
         response.setDoctorName("Dr. " + doctor.getName());
 
-        // Get specialization name if exists
         if (doctor.getSpecialization() != null) {
-            response.setDoctorSpecialization(doctor.getSpecialization().getName());
+            response.setDoctorSpecialization(
+                    doctor.getSpecialization().getName());
         } else {
             response.setDoctorSpecialization("General");
         }

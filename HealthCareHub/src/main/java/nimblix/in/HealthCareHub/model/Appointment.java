@@ -35,6 +35,7 @@ public class Appointment {
     protected void onCreate(){
         createdTime = HealthCareUtil.changeCurrentTimeToLocalDateFromGmtToISTInString();
         updatedTime = createdTime;
+
     }
 
     @PreUpdate
