@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentResponseDTO {
+public class AppointmentResponse {
 
     private Long appointmentId;
 
