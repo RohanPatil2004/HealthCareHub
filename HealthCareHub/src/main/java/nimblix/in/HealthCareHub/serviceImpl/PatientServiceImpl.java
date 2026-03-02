@@ -1,6 +1,5 @@
 package nimblix.in.HealthCareHub.serviceImpl;
 
-import nimblix.in.HealthCareHub.exception.PatientNotFoundException;
 import nimblix.in.HealthCareHub.model.Appointment;
 import nimblix.in.HealthCareHub.model.Doctor;
 import nimblix.in.HealthCareHub.model.Patient;
@@ -20,9 +19,8 @@ public class PatientServiceImpl implements PatientService {
     public List<AppointmentResponse> getAppointmentsByPatient(Long patientId) {
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new PatientNotFoundException(
-                        "Patient not found with id: " + patientId));
-
+                .orElse(null);
+         if(patient==null) return null;
         List<Appointment> appointments =
                 patientRepository.findAppointmentsByPatientId(patientId);
 

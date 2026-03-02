@@ -25,6 +25,12 @@ public class PatientController {
 
         List<AppointmentResponse> data =
                 patientService.getAppointmentsByPatient(patientId);
+        if(data==null){
+            Map<String,Object>error=new HashMap<>();
+            error.put("status",HttpStatus.NOT_FOUND.value());
+            error.put("message","Patient Not Found Exception");
+            return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+        }
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", HttpStatus.OK.value());
