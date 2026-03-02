@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/patient")
+@RequestMapping("/api/patient")
 @RequiredArgsConstructor
 public class PatientController {
     private PatientService patientService;
