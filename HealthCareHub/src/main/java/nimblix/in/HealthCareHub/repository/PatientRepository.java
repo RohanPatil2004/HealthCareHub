@@ -13,11 +13,8 @@ import java.util.Optional;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-
-    Optional<Patient> findByUser_Email(String email);
-
-    // Find patient by hospital
-    java.util.List<Patient> findByHospital_Id(Long hospitalId);
+//Get only active patients
+// List<Patient> findByIsDeletedFalse();
 
     @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
     List<Appointment> findAppointmentsByPatientId(@Param("patientId") Long patientId);

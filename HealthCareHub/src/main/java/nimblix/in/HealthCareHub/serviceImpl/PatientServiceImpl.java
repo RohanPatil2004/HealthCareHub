@@ -13,16 +13,36 @@ import java.util.stream.Collectors;
 
 public class PatientServiceImpl implements PatientService {
     @Autowired
-    private PatientRepository patientRepository;
+    private PatientRepository repository;
+
+    //    public List<Patient> getAllPatients() {
+//
+//        return repository.findByIsDeletedFalse();
+//    }
+
+    public String softDeletePatient(Long id) {
+        Patient patient = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+//        patient.setDeleted();   //  Mark as deleted
+        repository.save(patient);
+
+        return "Patient soft deleted successfully";
+    }
+
+    public Patient savePatient(Patient patient) {
+        // TODO Auto-generated method stub
+        return repository.save(patient);
+    }
 
     @Override
     public List<AppointmentResponse> getAppointmentsByPatient(Long patientId) {
 
-        Patient patient = patientRepository.findById(patientId)
+        Patient patient = repository.findById(patientId)
                 .orElse(null);
          if(patient==null) return null;
         List<Appointment> appointments =
-                patientRepository.findAppointmentsByPatientId(patientId);
+                repository.findAppointmentsByPatientId(patientId);
 
         return appointments.stream()
                 .map(this::mapToResponse)
